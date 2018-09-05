@@ -76,4 +76,12 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_to_the_home_page()
 
+    def del_all_contacts(self):
+        wd = self.app.wd
+        #if not wd.find_element_by_id("19").is_selected():
+         #   wd.find_element_by_id("19").click()
+        if not wd.find_element_by_id("MassCB").is_selected():
+           wd.find_element_by_id("MassCB").click()
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        wd.switch_to_alert().accept()
 
