@@ -1,11 +1,11 @@
 class ContactHelper:
 
     def __init__(self, app):
-        self.app=app
+        self.app = app
 
     def return_to_the_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
+        wd.find_element_by_link_text("home").click()
 
     def open_contacts_page(self):
         wd = self.app.wd
@@ -15,7 +15,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contacts_page()
         self.fill_contact_form(contact)
-        #wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        # wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         wd.find_element_by_name("submit").click()
         self.return_to_the_home_page()
 
@@ -39,7 +39,6 @@ class ContactHelper:
         self.change_contact_value("phone2", contact.phone)
         self.change_contact_value("notes", contact.notes)
 
-
         if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[3]").is_selected():
             wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[3]").click()
         if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").is_selected():
@@ -50,8 +49,6 @@ class ContactHelper:
         if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[3]").is_selected():
             wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[3]").click()
 
-
-
     def change_contact_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
@@ -59,36 +56,48 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def del_all_contacts(self):
+    # def del_all_contacts(self):
+    #     wd = self.app.wd
+    #     self.return_to_the_home_page()
+    #     # if not wd.find_element_by_id("19").is_selected():
+    #     #   wd.find_element_by_id("19").click()
+    #     if not wd.find_element_by_id("MassCB").is_selected():
+    #         wd.find_element_by_id("MassCB").click()
+    #     # self.select_first_contact()
+    #     # wd.find_element_by_name("delete").click()
+    #     # wd.find_element_by_name("selected[]").click()
+    #     wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+    #
+    #     wd.switch_to_alert().accept()
+    #     self.return_to_the_home_page()
+    #
+    # def select_first_contact(self):
+    #     wd = self.app.wd
+    #     # if not wd.find_element_by_name("selected[]").is_selected():
+    #     # wd.find_element_by_name("selected[]").click()
+    #     # wd.find_element_by_name("selected[]").click()
+    #     wd.find_element_by_name("selected[]").click()
+    def delete_first_contact(self):
         wd = self.app.wd
+
         self.return_to_the_home_page()
-        #if not wd.find_element_by_id("19").is_selected():
-         #   wd.find_element_by_id("19").click()
-        #if not wd.find_element_by_id("MassCB").is_selected():
-        #   wd.find_element_by_id("MassCB").click()
+
         self.select_first_contact()
-        #wd.find_element_by_name("delete").click()
-        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+
         self.return_to_the_home_page()
 
     def select_first_contact(self):
         wd = self.app.wd
-        #if not wd.find_element_by_name("selected[]").is_selected():
-        #wd.find_element_by_name("selected[]").click()
         wd.find_element_by_name("selected[]").click()
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
         self.return_to_the_home_page()
-        #wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
-        #wd.find_element_by_link_text("edit").click()
-        #wd.find_element_by_name("edit").click()
-        #wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[9]/td[8]/a/img").click()
-        #wd.find_element_by_link("http://localhost:8080/addressbook/edit.php?id=35")
-        #wd.find_element_by_xpath("//tr[@class='odd']/td[8]/a/img").click()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img").click()
-        wd.find_element_by_name("modifiy").click()
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[@name='entry'][1]/td[8]/a").click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.return_to_the_home_page()
+
