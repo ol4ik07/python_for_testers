@@ -16,6 +16,16 @@ class ContactHelper:
         self.open_contacts_page()
         self.fill_contact_form(contact)
         # wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[3]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[3]").click()
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").click()
+
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[4]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[4]").click()
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[3]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[3]").click()
+
         wd.find_element_by_name("submit").click()
         self.return_to_the_home_page()
 
@@ -39,15 +49,6 @@ class ContactHelper:
         self.change_contact_value("phone2", contact.phone)
         self.change_contact_value("notes", contact.notes)
 
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[3]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[3]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[2]").click()
-
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[4]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[4]").click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[3]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[3]").click()
 
     def change_contact_value(self, field_name, text):
         wd = self.app.wd
@@ -101,3 +102,7 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.return_to_the_home_page()
 
+    def count(self):
+        wd = self.app.wd
+        self.return_to_the_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
